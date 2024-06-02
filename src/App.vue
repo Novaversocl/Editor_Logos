@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container fondo">
+  <div id="app" class="container  fondo-transparente">
     <form class="form-container">
       <label for="id_colorInput">Color de Fondo:</label>
       <div class="salto"></div>
@@ -44,7 +44,9 @@
 
       <label>
         <div class="salto"></div>
-        <input type="checkbox" v-model="v_model_opacity" /> Opacidad
+        <!-- <input type="checkbox" v-model="v_model_opacity" /> Sombra Texto -->
+        <input type="checkbox" v-model="v_model_sombra" /> Sombra Texto
+
       </label>
 
       <div class="salto"></div>
@@ -65,15 +67,35 @@
           Grande
         </label>
       </div>
+
+      <br>
+<div class="container boton">
+
+ 
+
+</div>
+<div class="container boton">
+        <button @click="descargarImagen" type="button" class="btn btn-success">Descargar Gratis</button>
+
+      </div>
+   
+
     </form>
 
-    <div class="square-container">
-      <div class="square" id="movable-div" @mousedown="startDrag" :style="{
+    <div  class="square-container">
+      <div ref="descargarLogoContainer" class="square" id="movable-div" @mousedown="startDrag" :style="{
         ...div_style,
         background: v_model_gradientStyle,
         color: v_model_textColor,
-        opacity: v_model_opacity ? '0.5' : '1',
+        // opacity: v_model_opacity ? '0.8' : '1',
+        textShadow: v_model_sombra ? '2px 2px 4px rgba(0, 0, 0, 0.5)' : 'none' ,
+        // boxShadow: v_model_opacity ? '0 0 10px rgba(0, 0, 0, 0.5)' : 'none' ,/* Agregar resplandor solo si la opacidad está activada */
         borderRadius: v_model_borderWidth + 'px',
+     
+  borderColor: 'transparent',
+  
+
+
       }">
         <span :style="{
           fontSize: fontSize,
@@ -94,8 +116,7 @@
 
 <script>
 import axios from 'axios';
-
-
+import html2canvas from 'html2canvas';
 export default {
   name: "App",
   data() {
@@ -108,7 +129,8 @@ export default {
       v_model_font: "",
       v_model_bold: false,
       v_model_fontSize: "pequeño",
-      v_model_opacity: false,
+      // v_model_opacity: false,
+      v_model_sombra: false,
       v_model_borderWidth: 0,
       v_model_gradientStartColor: "#251177", // Color de inicio predeterminado
       v_model_gradientEndColor: "#ff0000", // Color de fin predeterminado
@@ -155,9 +177,27 @@ export default {
 
   methods: {
 
+    descargarImagen() {
+  const div = this.$refs.descargarLogoContainer;
+  if (!div) {
+    console.error("Elemento ref 'descargarLogoContainer' no encontrado");
+    return;
+  }
 
-
-
+  html2canvas(div, {
+    backgroundColor: null // Establecer el fondo transparente
+  }).then((canvas) => {
+    const imgData = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = imgData;
+    link.download = 'logo.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }).catch(error => {
+    console.error("Error al generar la imagen con html2canvas:", error);
+  });
+},
 
     startDrag(event) {
       // Método para iniciar el arrastre del div
@@ -226,6 +266,9 @@ export default {
 .fondo {
   background-color: rgb(0, 11, 26);
 }
+/* .fondo-transparente {
+  background-color: transparent;
+} */
 
 .form-container {
   margin-left: 1rem;
@@ -233,7 +276,7 @@ export default {
   padding-left: 1rem;
   padding-right: 10px;
   padding-top: 1rem;
-  padding-bottom: 4rem;
+  padding-bottom: 8rem;
   width: 180px;
   height: 350px;
   color: aliceblue;
@@ -246,6 +289,7 @@ export default {
 }
 
 .square-container {
+  
   width: 550px;
   /* Ancho fijo del contenedor del cuadrado */
 
@@ -271,7 +315,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 1rem;
+  padding: 1rem;
 
 
 }
@@ -317,4 +361,70 @@ footer {
   color: #ffffff; /* Adjust color as needed */
 padding-top: 5rem;
 }
+
+.boton{
+
+
+justify-content: center;
+
+}
+
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-success {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-success:hover {
+  color: #fff;
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.btn-success:focus, .btn-success.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+}
+
+.btn-success:active, .btn-success.active, .show > .btn-success.dropdown-toggle {
+  color: #fff;
+  background-color: #1e7e34;
+  border-color: #1c7430;
+}
+
+.btn-success:active:focus, .btn-success.active:focus, .show > .btn-success.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+}
+
+.square-container{
+  /* background: #28a745 */
+
+
+}
+
+.transparent-border {
+  /* border: none !important; */
+}
+.square {
+  /* border: 50px solid rgba(0, 0, 0, 0); */
+/* background: #28a745 */
+}
+
 </style>
