@@ -327,7 +327,7 @@ export default {
 @media screen and (max-width: 600px) {
   .square {
   
-    padding: 2px;
+    padding: 1px;
 
     /* Otros estilos específicos para dispositivos móviles */
   }
