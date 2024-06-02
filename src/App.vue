@@ -84,6 +84,12 @@
       </div>
     </div>
   </div>
+
+  <footer>
+<p class="footer">Desarrollado por Novaverso
+<a href="https://github.com/Novaversocl"> GitHub</a>
+</p>
+  </footer>
 </template>
 
 <script>
@@ -98,7 +104,7 @@ export default {
       v_model_backgroundColor: "",
       v_model_textColor: "white",
       v_model_showText: true,
-      v_model_text: "Hola Mundo",
+      v_model_text: "Nombre empresa",
       v_model_font: "",
       v_model_bold: false,
       v_model_fontSize: "pequeño",
@@ -227,7 +233,7 @@ export default {
   padding-left: 1rem;
   padding-right: 10px;
   padding-top: 1rem;
-  padding-bottom: 3rem;
+  padding-bottom: 4rem;
   width: 180px;
   height: 350px;
   color: aliceblue;
@@ -296,5 +302,19 @@ salto {
 
 .icon-option i {
   margin-right: 5px;
+}
+
+
+#app {
+}
+
+footer {
+  margin-top: auto; /* Push the footer to the bottom of the page */
+}
+
+.footer {
+  text-align: center;
+  color: #ffffff; /* Adjust color as needed */
+padding-top: 5rem;
 }
 </style>
