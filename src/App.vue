@@ -172,9 +172,9 @@ export default {
         left: this.div_X + "px", // Posición izquierda del div
         top: this.div_Y + "px", // Posición superior del div
         position: "absolute", // Posición absoluta del div
-        width: "200px", // Ancho del div
-        height: "200px", // Alto del div
-        backgroundColor: "lightblue", // Color de fondo del div
+        // width: "180px", // Ancho del div
+        // height: "180px", // Alto del div
+        // backgroundColor: "lightblue", // Color de fondo del div
       };
     },
   },
@@ -298,7 +298,8 @@ export default {
 
 .square-container {
   
-  width: 550px;
+  /* width: 550px; */
+  /* padding:3rem; */
   /* Ancho fijo del contenedor del cuadrado */
 
   display: flex;
@@ -316,35 +317,47 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  width: 10rem;
+  height: 10rem;
 
   padding: 3rem;
-  /* width: 50px;
-  height: 50px; */
+
 
 }
 
 /* Estilos para dispositivos móviles */
 @media screen and (max-width: 600px) {
   .square {
-  
-    padding: 0; /* Asegúrate de que el padding sea 0 */
-    width: 1rem;
-    height: 1rem;
+ 
+padding: 1rem;
+ margin: 0;
+ width: 10rem;
+  height: 10rem;
+ 
+  /* padding-left:0 ;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem; */
+ 
+
 
     /* Otros estilos específicos para dispositivos móviles */
   }
 
   .form-container {
-  margin-left: 5px;
+   /* margin-left: 1px;
   margin-right: 1px;
   margin-top: 1rem;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-top: 1rem;
-  padding-bottom: 8rem;
-  width: 180px;
-  height: 350px;
+  padding-left: 1px;
+  padding-right: 1px;
+  padding-top: 1rem; */
+  /* padding-bottom: 8rem; */
+margin: 1px;
+padding: 5px;
+
+  width: 11rem;
+  height: 30rem;
+
   color: aliceblue;
   background: linear-gradient(to bottom right,
       rgb(137, 46, 158),
