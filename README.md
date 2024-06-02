@@ -1,6 +1,6 @@
 # Editor de Logos Demo
 
-Este es un editor de logos en línea que te permite personalizar el diseño de tu logo de forma sencilla y profesional.
+Este es un editor de logos en línea que te permite personalizar el diseño de tu logo de forma sencilla.
 
 ## Características
 
