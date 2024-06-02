@@ -319,7 +319,8 @@ export default {
 
 
   padding: 3rem;
-
+  /* width: 50px;
+  height: 50px; */
 
 }
 
@@ -327,7 +328,9 @@ export default {
 @media screen and (max-width: 600px) {
   .square {
   
-    padding: 0.5px;
+    padding: 0; /* Asegúrate de que el padding sea 0 */
+    width: 1rem;
+    height: 1rem;
 
     /* Otros estilos específicos para dispositivos móviles */
   }
