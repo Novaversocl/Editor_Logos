@@ -327,10 +327,30 @@ export default {
 @media screen and (max-width: 600px) {
   .square {
   
-    padding: 1px;
+    padding: 0.5px;
 
     /* Otros estilos específicos para dispositivos móviles */
   }
+
+  .form-container {
+  margin-left: 5px;
+  margin-right: 1px;
+  margin-top: 1rem;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 1rem;
+  padding-bottom: 8rem;
+  width: 180px;
+  height: 350px;
+  color: aliceblue;
+  background: linear-gradient(to bottom right,
+      rgb(137, 46, 158),
+      rgb(13, 5, 255));
+  /* Degradado de fondo */
+
+  border-radius: 0rem 2rem;
+}
+
 }
 
 
