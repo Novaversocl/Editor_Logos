@@ -227,6 +227,7 @@ export default {
   padding-left: 1rem;
   padding-right: 10px;
   padding-top: 1rem;
+  padding-bottom: 3rem;
   width: 180px;
   height: 350px;
   color: aliceblue;
