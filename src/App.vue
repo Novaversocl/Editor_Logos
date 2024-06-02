@@ -329,10 +329,10 @@ export default {
 @media screen and (max-width: 600px) {
   .square {
  
-padding: 0.5rem;
+padding: 0.8rem;
  margin: 0;
- width: 8rem;
-  height: 8rem;
+ width: 9rem;
+  height: 9rem;
  
   /* padding-left:0 ;
   padding-right: 0.5rem;
