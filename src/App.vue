@@ -1,5 +1,9 @@
 <template>
   <div id="app" class="container  fondo-transparente">
+
+
+
+    
     <form class="form-container">
       <label for="id_colorInput">Color de Fondo:</label>
       <div class="salto"></div>
@@ -274,10 +278,11 @@ export default {
 } */
 
 .form-container {
-  margin-left: 1rem;
+  margin-left: 5px;
+  margin-right: 1px;
   margin-top: 1rem;
-  padding-left: 1rem;
-  padding-right: 10px;
+  padding-left: 10px;
+  padding-right: 5px;
   padding-top: 1rem;
   padding-bottom: 8rem;
   width: 180px;
@@ -300,28 +305,39 @@ export default {
   justify-content: center;
   align-items: center;
 
-  /* width: 100%; */
-  /* height: 100vh; */
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* margin-left: 2rem; */
-  margin: 2rem;
+
+  margin: 1rem;
   position: relative;
   user-select: none;
 }
 
 .square {
-  /* width: 3px;
-  height: 3px; */
-  /* background-color: rgb(183, 150, 18); */
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+
   padding: 3rem;
 
 
 }
+
+/* Estilos para dispositivos móviles */
+@media screen and (max-width: 600px) {
+  .square {
+  
+    padding: 1rem;
+
+    /* Otros estilos específicos para dispositivos móviles */
+  }
+}
+
+
+
+
+
+
 
 .red {
   background-color: red !important;
@@ -417,9 +433,6 @@ justify-content: center;
 }
 
 .square-container{
-  /* background: #28a745 */
-
-
 }
 
 .transparent-border {
@@ -429,5 +442,7 @@ justify-content: center;
   /* border: 50px solid rgba(0, 0, 0, 0); */
 /* background: #28a745 */
 }
+
+
 
 </style>
