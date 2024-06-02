@@ -185,12 +185,15 @@ export default {
   }
 
   html2canvas(div, {
-    backgroundColor: null // Establecer el fondo transparente
+    backgroundColor: null, // Establecer el fondo transparente
+    scale: 3, // Escala mayor para mejorar la calidad de la imagen
+    logging: false, // Deshabilitar el registro de consola para mejorar el rendimiento
+    dpi: window.devicePixelRatio * 900, // DPI más alto para mejorar la calidad de impresión
   }).then((canvas) => {
-    const imgData = canvas.toDataURL('image/png');
+    const imgData = canvas.toDataURL('image/png', 1.0); // Calidad máxima
     const link = document.createElement('a');
     link.href = imgData;
-    link.download = 'logo.png';
+    link.download = 'logo.jpg'; // Cambiar la extensión a .jpg
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -309,13 +312,13 @@ export default {
 }
 
 .square {
-  width: 300px;
-  height: 300px;
+  /* width: 3px;
+  height: 3px; */
   /* background-color: rgb(183, 150, 18); */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 3rem;
 
 
 }
