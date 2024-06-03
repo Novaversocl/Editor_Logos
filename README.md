@@ -29,7 +29,8 @@ Este es un editor de logos en línea que te permite personalizar el diseño de t
 
 ## Capturas de Pantalla
 
-![imagen](https://github.com/Novaversocl/Editor_Logos/assets/95386670/fe13f977-6577-416a-bdea-08b8d8413b8e)
+![imagen](https://github.com/Novaversocl/Editor_Logos/assets/95386670/675f33f0-9ca7-4d7b-92f8-65ec819736b2)
+
 
 
 ## Contribuyendo
