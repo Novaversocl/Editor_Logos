@@ -1,19 +1,24 @@
 <template>
-  <div id="app" class="container  fondo-transparente">
-
-
-
-    
+  <div id="app" class="container fondo-transparente">
     <form class="form-container">
       <label for="id_colorInput">Color de Fondo:</label>
       <div class="salto"></div>
 
       <label for="gradientStart">Inicio:</label>
-      <input type="color" id="gradientStart" v-model="v_model_gradientStartColor" />
+      <input
+        type="color"
+        id="gradientStart"
+        v-model="v_model_gradientStartColor"
+      />
       <div class="salto"></div>
 
       <label for="gradientEnd">Fin:</label>
-      <input class="derecha" type="color" id="gradientEnd" v-model="v_model_gradientEndColor" />
+      <input
+        class="derecha"
+        type="color"
+        id="gradientEnd"
+        v-model="v_model_gradientEndColor"
+      />
       <div class="salto"></div>
 
       <div class="salto"></div>
@@ -27,21 +32,38 @@
 
       <label for="borderInput">Borde:</label>
       <div class="salto"></div>
-      <input type="range" id="borderInput" v-model="v_model_borderWidth" min="0" max="50" step="1" />
+      <input
+        type="range"
+        id="borderInput"
+        v-model="v_model_borderWidth"
+        min="0"
+        max="50"
+        step="1"
+      />
       <span>{{ v_model_borderWidth }}px</span>
 
-      <div class="salto"></div>
+      <!-- <div class="salto"></div>
       <textarea v-model="v_model_text" :style="{ resize: 'none' }"></textarea>
+      <div class="salto"></div> -->
+
       <div class="salto"></div>
-
-
+      <textarea
+        v-model="v_model_text"
+        :style="{ resize: 'none' }"
+        @input="limitInput"
+      ></textarea>
+      <div class="salto"></div>
 
       <div class="salto"></div>
 
       <label for="id_fontInput">Tipo de Fuente:</label>
       <div class="salto"></div>
       <select v-model="v_model_font" @change="updateFont" class="input_fuente">
-        <option v-for="font in googleFonts" :key="font.family" :value="font.family">
+        <option
+          v-for="font in googleFonts"
+          :key="font.family"
+          :value="font.family"
+        >
           {{ font.family }}
         </option>
       </select>
@@ -50,7 +72,6 @@
         <div class="salto"></div>
         <!-- <input type="checkbox" v-model="v_model_opacity" /> Sombra Texto -->
         <input type="checkbox" v-model="v_model_sombra" /> Sombra Texto
-
       </label>
 
       <div class="salto"></div>
@@ -66,45 +87,70 @@
           Mediano
         </label>
         <div class="salto"></div>
-        <label>
+        <label class="check_grande">
           <input type="radio" value="grande" v-model="v_model_fontSize" />
           Grande
         </label>
       </div>
 
-      <br>
-<div class="container boton">
+  
+      <!-- ------------------------------------- -->
+
+      <div class="effects-container">
+        <label for="effect-select">Efectos:</label>
+        <select id="effect-select" v-model="selectedEffect">
+          <option value="Ninguna">Ninguno</option>
+          <option value="text3d">Texto en 3D</option>
+          <option value="neon">Texto con Efecto Neón</option>
+
+        </select>
 
  
-
-</div>
-<div class="container boton">
-        <button @click="descargarImagen" type="button" class="btn btn-success">Descargar Gratis</button>
-
       </div>
-   
 
+      <!-- ------------------------------------- -->
+
+      <div class="salto"></div>
+
+      <br />
+      <div class="container boton"></div>
+      <div class="container boton">
+        <button @click="descargarImagen" type="button" class="btn btn-success">
+          Descargar Gratis
+        </button>
+      </div>
     </form>
 
-    <div  class="square-container">
-      <div ref="descargarLogoContainer" class="square" id="movable-div" @mousedown="startDrag" :style="{
-        ...div_style,
-        background: v_model_gradientStyle,
-        color: v_model_textColor,
-        // opacity: v_model_opacity ? '0.8' : '1',
-        textShadow: v_model_sombra ? '2px 2px 4px rgba(0, 0, 0, 0.5)' : 'none' ,
-        // boxShadow: v_model_opacity ? '0 0 10px rgba(0, 0, 0, 0.5)' : 'none' ,/* Agregar resplandor solo si la opacidad está activada */
-        borderRadius: v_model_borderWidth + 'px',
-     
-  borderColor: 'transparent',
-  
+    <div class="square-container">
+      <div
+        ref="descargarLogoContainer"
+        class="square"
+        id="movable-div"
+        @mousedown="startDrag"
+        :style="{
+          ...div_style,
+          background: v_model_gradientStyle,
+          color: v_model_textColor,
+          // opacity: v_model_opacity ? '0.8' : '1',
+          textShadow: v_model_sombra
+            ? '2px 2px 4px rgba(0, 0, 0, 0.5)'
+            : 'none',
+          // boxShadow: v_model_opacity ? '0 0 10px rgba(0, 0, 0, 0.5)' : 'none' ,/* Agregar resplandor solo si la opacidad está activada */
+          borderRadius: v_model_borderWidth + 'px',
 
+          borderColor: 'transparent',
+        }"
+      >
+    
 
-      }">
-        <span :style="{
-          fontSize: fontSize,
-          fontFamily: v_model_font,
-        }" v-show="v_model_showText">
+        <span
+          :class="selectedEffect"
+          v-show="v_model_showText && selectedEffect"
+          :style="{
+            fontSize: fontSize,
+            fontFamily: v_model_font,
+          }"
+        >
           {{ v_model_text }}
         </span>
       </div>
@@ -112,20 +158,22 @@
   </div>
 
   <footer>
-<p class="footer">Desarrollado por Novaverso
-<a href="https://github.com/Novaversocl"> GitHub</a>
-</p>
+    <p class="footer">
+      Desarrollado por Novaverso
+      <a href="https://github.com/Novaversocl"> GitHub</a>
+    </p>
   </footer>
 </template>
 
 <script>
-import axios from 'axios';
-import html2canvas from 'html2canvas';
+import axios from "axios";
+import html2canvas from "html2canvas";
 export default {
   name: "App",
+
   data() {
     return {
-
+      selectedEffect: "Ninguna",
       v_model_backgroundColor: "",
       v_model_textColor: "white",
       v_model_showText: true,
@@ -133,13 +181,11 @@ export default {
       v_model_font: "",
       v_model_bold: false,
       v_model_fontSize: "pequeño",
-      // v_model_opacity: false,
       v_model_sombra: false,
       v_model_borderWidth: 0,
       v_model_gradientStartColor: "#251177", // Color de inicio predeterminado
       v_model_gradientEndColor: "#ff0000", // Color de fin predeterminado
       googleFonts: [],
-
 
       div_isDragging: false, // Variable para controlar si se está arrastrando el div
       div_startX: 0, // Posición inicial del mouse en el eje X al iniciar el arrastre
@@ -151,6 +197,19 @@ export default {
     };
   },
   computed: {
+    effectText() {
+
+      if (this.selectedEffect === "text3d") {
+        return "Texto en 3D";
+      } else if (this.selectedEffect === "neon") {
+        return "Texto con efecto neón";
+      } else if (this.selectedEffect === "Ninguna") {
+        return "Empresa";
+      } else {
+        return "";
+      }
+    },
+
     v_model_gradientStyle() {
       return `linear-gradient(to bottom right, ${this.v_model_gradientStartColor}, ${this.v_model_gradientEndColor})`;
     },
@@ -180,31 +239,38 @@ export default {
   },
 
   methods: {
+    limitInput() {
+      if (this.v_model_text.length > 9) {
+        this.v_model_text = this.v_model_text.slice(0, 9);
+      }
+    },
 
     descargarImagen() {
-  const div = this.$refs.descargarLogoContainer;
-  if (!div) {
-    console.error("Elemento ref 'descargarLogoContainer' no encontrado");
-    return;
-  }
+      const div = this.$refs.descargarLogoContainer;
+      if (!div) {
+        console.error("Elemento ref 'descargarLogoContainer' no encontrado");
+        return;
+      }
 
-  html2canvas(div, {
-    backgroundColor: null, // Establecer el fondo transparente
-    scale: 3, // Escala mayor para mejorar la calidad de la imagen
-    logging: false, // Deshabilitar el registro de consola para mejorar el rendimiento
-    dpi: window.devicePixelRatio * 900, // DPI más alto para mejorar la calidad de impresión
-  }).then((canvas) => {
-    const imgData = canvas.toDataURL('image/png', 1.0); // Calidad máxima
-    const link = document.createElement('a');
-    link.href = imgData;
-    link.download = 'logo.jpg'; // Cambiar la extensión a .jpg
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }).catch(error => {
-    console.error("Error al generar la imagen con html2canvas:", error);
-  });
-},
+      html2canvas(div, {
+        backgroundColor: null, // Establecer el fondo transparente
+        scale: 3, // Escala mayor para mejorar la calidad de la imagen
+        logging: false, // Deshabilitar el registro de consola para mejorar el rendimiento
+        dpi: window.devicePixelRatio * 900, // DPI más alto para mejorar la calidad de impresión
+      })
+        .then((canvas) => {
+          const imgData = canvas.toDataURL("image/png", 1.0); // Calidad máxima
+          const link = document.createElement("a");
+          link.href = imgData;
+          link.download = "logo.jpg"; // Cambiar la extensión a .jpg
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        })
+        .catch((error) => {
+          console.error("Error al generar la imagen con html2canvas:", error);
+        });
+    },
 
     startDrag(event) {
       // Método para iniciar el arrastre del div
@@ -235,26 +301,28 @@ export default {
     },
     async fetchGoogleFonts() {
       try {
-        const response = await axios.get('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyD_HpYZvJULJ1Tai7jWA-sb3aFJ9MBRcd0');
+        const response = await axios.get(
+          "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyD_HpYZvJULJ1Tai7jWA-sb3aFJ9MBRcd0"
+        );
         this.googleFonts = response.data.items;
       } catch (error) {
-        console.error('Error fetching Google Fonts:', error);
+        console.error("Error fetching Google Fonts:", error);
       }
     },
     updateFont() {
       const selectedFont = this.v_model_font;
-      const link = document.createElement('link');
-      link.href = `https://fonts.googleapis.com/css2?family=${selectedFont.replace(/ /g, '+')}&display=swap`;
-      link.rel = 'stylesheet';
+      const link = document.createElement("link");
+      link.href = `https://fonts.googleapis.com/css2?family=${selectedFont.replace(
+        / /g,
+        "+"
+      )}&display=swap`;
+      link.rel = "stylesheet";
       document.head.appendChild(link);
     },
   },
   mounted() {
     this.fetchGoogleFonts();
   },
-
-
-
 };
 </script>
 
@@ -273,6 +341,7 @@ export default {
 .fondo {
   background-color: rgb(0, 11, 26);
 }
+
 /* .fondo-transparente {
   background-color: transparent;
 } */
@@ -286,26 +355,24 @@ export default {
   padding-top: 1rem;
   padding-bottom: 8rem;
   width: 180px;
-  height: 350px;
+  height: 420px;
   color: aliceblue;
-  background: linear-gradient(to bottom right,
-      rgb(37, 17, 119),
-      rgb(255, 0, 0));
+  background: linear-gradient(
+    to bottom right,
+    rgb(37, 17, 119),
+    rgb(255, 0, 0)
+  );
   /* Degradado de fondo */
 
   border-radius: 0rem 2rem;
 }
 
 .square-container {
-  
-  /* width: 550px; */
-  /* padding:3rem; */
-  /* Ancho fijo del contenedor del cuadrado */
+
 
   display: flex;
   justify-content: center;
   align-items: center;
-
 
   margin: 1rem;
   position: relative;
@@ -313,7 +380,6 @@ export default {
 }
 
 .square {
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -321,59 +387,44 @@ export default {
   height: 10rem;
 
   padding: 3rem;
-
-
 }
 
 /* Estilos para dispositivos móviles */
 @media screen and (max-width: 600px) {
-  .square {
- 
-padding: 0.8rem;
- margin: 0;
- width: 9rem;
-  height: 9rem;
- 
-  /* padding-left:0 ;
-  padding-right: 0.5rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem; */
- 
+  .check_grande {
+    display: none;
+  }
 
+  .square {
+    padding: 0.8rem;
+    margin: 0;
+    width: 9rem;
+    height: 9rem;
+
+ 
 
     /* Otros estilos específicos para dispositivos móviles */
   }
 
   .form-container {
-   /* margin-left: 1px;
-  margin-right: 1px;
-  margin-top: 1rem;
-  padding-left: 1px;
-  padding-right: 1px;
-  padding-top: 1rem; */
-  /* padding-bottom: 8rem; */
-margin: 1px;
-padding: 5px;
 
-  width: 11rem;
-  height: 30rem;
+    margin: 1px;
+    padding: 5px;
 
-  color: aliceblue;
-  background: linear-gradient(to bottom right,
+    width: 11rem;
+    height: 33rem;
+
+    color: aliceblue;
+    background: linear-gradient(
+      to bottom right,
       rgb(137, 46, 158),
-      rgb(13, 5, 255));
-  /* Degradado de fondo */
+      rgb(13, 5, 255)
+    );
+    /* Degradado de fondo */
 
-  border-radius: 0rem 2rem;
+    border-radius: 0rem 2rem;
+  }
 }
-
-}
-
-
-
-
-
-
 
 .red {
   background-color: red !important;
@@ -388,9 +439,7 @@ salto {
 }
 
 .input_fuente {
-
   width: 150px;
-
 }
 
 /* Agrega un estilo para los iconos en el dropdown */
@@ -403,27 +452,24 @@ salto {
   margin-right: 5px;
 }
 
-
 #app {
 }
 
 footer {
-  margin-top: auto; /* Push the footer to the bottom of the page */
+  margin-top: auto;
+  /* Push the footer to the bottom of the page */
 }
 
 .footer {
   text-align: center;
-  color: #ffffff; /* Adjust color as needed */
-padding-top: 5rem;
+  color: #ffffff;
+  /* Adjust color as needed */
+  padding-top: 5rem;
 }
 
-.boton{
-
-
-justify-content: center;
-
+.boton {
+  justify-content: center;
 }
-
 
 .btn {
   display: inline-block;
@@ -437,7 +483,8 @@ justify-content: center;
   font-size: 1rem;
   line-height: 1.5;
   border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   cursor: pointer;
 }
 
@@ -453,32 +500,68 @@ justify-content: center;
   border-color: #1e7e34;
 }
 
-.btn-success:focus, .btn-success.focus {
+.btn-success:focus,
+.btn-success.focus {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
 }
 
-.btn-success:active, .btn-success.active, .show > .btn-success.dropdown-toggle {
+.btn-success:active,
+.btn-success.active,
+.show > .btn-success.dropdown-toggle {
   color: #fff;
   background-color: #1e7e34;
   border-color: #1c7430;
 }
 
-.btn-success:active:focus, .btn-success.active:focus, .show > .btn-success.dropdown-toggle:focus {
+.btn-success:active:focus,
+.btn-success.active:focus,
+.show > .btn-success.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
 }
 
-.square-container{
+.square-container {
 }
 
 .transparent-border {
   /* border: none !important; */
 }
+
 .square {
   /* border: 50px solid rgba(0, 0, 0, 0); */
-/* background: #28a745 */
+  /* background: #28a745 */
+}
+
+.effects-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.effect-container {
+  width: 100%;
+  text-align: center;
 }
 
 
+.text3d,
+.neon,
 
+
+
+.text3d {
+  text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
+    0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
+    0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
+    0 20px 20px rgba(0, 0, 0, 0.15);
+}
+
+.neon {
+  color: #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00ff, 0 0 30px #ff00ff,
+    0 0 40px #ff00ff, 0 0 50px #ff00ff, 0 0 60px #ff00ff;
+}
 </style>
