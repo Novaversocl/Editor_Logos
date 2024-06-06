@@ -177,7 +177,7 @@ export default {
       v_model_backgroundColor: "",
       v_model_textColor: "white",
       v_model_showText: true,
-      v_model_text: "Nombre empresa",
+      v_model_text: "Nombre",
       v_model_font: "",
       v_model_bold: false,
       v_model_fontSize: "pequeño",
